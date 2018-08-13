@@ -29,7 +29,7 @@ namespace Dojodachi.Controllers
             ViewBag.Happiness = HttpContext.Session.GetInt32("Happiness");
             ViewBag.Meals = HttpContext.Session.GetInt32("Meals");
             ViewBag.Energy = HttpContext.Session.GetInt32("Energy");
-            if(Fullness > 100 || Happiness > 100 || Energy > 100)
+            if(Fullness > 100 && Happiness > 100 && Energy > 100)
             {
                 TempData["action"] = "Congrats! You have won!";
             }
@@ -62,6 +62,49 @@ namespace Dojodachi.Controllers
             Meals-=1;
             HttpContext.Session.SetInt32("Fullness", (int)Fullness);
             HttpContext.Session.SetInt32("Meals", (int)Meals);
+            return RedirectToAction("Index");
+        }
+        [HttpGet("working")]
+        public IActionResult Work()
+        {
+            Random rand = new Random();
+            int? Meals = HttpContext.Session.GetInt32("Meals");
+            int? Energy = HttpContext.Session.GetInt32("Energy");
+            int addedMeal = rand.Next(1,3);
+            Energy-=5;
+            Meals+=addedMeal;
+            if(addedMeal == 1)
+            {
+                TempData["action"] = "Your Dojodachi just worked a normal shift";
+            }
+            else 
+            {
+                TempData["action"] = "Your Dojodachi has worked some overtime";
+            }
+            HttpContext.Session.SetInt32("Meals", (int)Meals);
+            HttpContext.Session.SetInt32("Energy", (int)Energy);
+            return RedirectToAction("Index");
+        }
+        [HttpGet("play")]
+        public IActionResult Play()
+        {
+            Random rand = new Random();
+            int? Happiness = HttpContext.Session.GetInt32("Happiness");
+            int? Energy = HttpContext.Session.GetInt32("Energy");
+            int randomRaise = rand.Next(5,10);
+            if(randomRaise == 5)
+            {
+                TempData["action"] = "Your Dojodachi is not having fun";
+            }
+            else 
+            {
+                TempData["action"] = "Your Dojodachi is having loads of fun";
+            }
+            Energy-=5;
+            Happiness+=randomRaise;
+            TempData["action"] = $"You gained {randomRaise} happiness";
+            HttpContext.Session.SetInt32("Happiness", (int)Happiness);
+            HttpContext.Session.SetInt32("Energy", (int)Energy);
             return RedirectToAction("Index");
         }
 
