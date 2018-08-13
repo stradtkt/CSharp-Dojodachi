@@ -107,6 +107,22 @@ namespace Dojodachi.Controllers
             HttpContext.Session.SetInt32("Energy", (int)Energy);
             return RedirectToAction("Index");
         }
+        [HttpGet("sleeping")]
+        public IActionResult Sleep()
+        {
+            int? Fullness = HttpContext.Session.GetInt32("Fullness");
+            int? Happiness = HttpContext.Session.GetInt32("Happiness");
+            int? Energy = HttpContext.Session.GetInt32("Energy");
+            Energy+=15;
+            Happiness-=5;
+            Fullness-=5;
+            HttpContext.Session.SetInt32("Happiness", (int)Happiness);
+            HttpContext.Session.SetInt32("Energy", (int)Energy);
+            HttpContext.Session.SetInt32("Fullness", (int)Fullness);
+            TempData["action"] = $"You wake up well rested and gained {Energy} but lost 5 in {Happiness} and {Fullness}.";
+
+            return RedirectToAction("Index");
+        }
 
         public IActionResult Error()
         {
