@@ -5,12 +5,21 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="dojo">
-            <span>Fullness </span> <span>Happiness </span> <span>Meals </span> <span>Energy </span>
-            <div class="dachi">
-
-                <p>Message</p>
+            <span>Fullness @ViewBag.Fullness</span> 
+            <span>Happiness @ViewBag.Happiness</span> 
+            <span>Meals @ViewBag.Meals</span> 
+            <span>Energy @ViewBag.Energy</span>
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">@ViewBag.action</p>
+                </div>
             </div>
-            <span><a href="" class="btn btn-primary">Feed</a></span><span><a href="" class="btn btn-primary">Play</a></span><span><a href="" class="btn btn-primary">Work</a></span><span><a href="" class="btn btn-primary">Sleep</a></span>
+            <span><a href="Feed" class="btn btn-primary">Feed</a></span>
+            <span><a href="Play" class="btn btn-primary">Play</a></span>
+            <span><a href="Work" class="btn btn-primary">Work</a></span>
+            <span><a href="Sleep" class="btn btn-primary">Sleep</a></span>
         </div>
     </div>    
 </div>
