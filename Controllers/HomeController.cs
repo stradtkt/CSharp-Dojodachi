@@ -20,6 +20,7 @@ namespace Dojodachi.Controllers
             int? Energy = HttpContext.Session.GetInt32("Energy");
             if(Fullness == null || Happiness == null | Meals == null || Energy == null)
             {
+                TempData["img"] = "start.jpg";
                 HttpContext.Session.SetInt32("Fullness", 20);
                 HttpContext.Session.SetInt32("Happiness", 20);
                 HttpContext.Session.SetInt32("Meals", 3);
@@ -31,7 +32,7 @@ namespace Dojodachi.Controllers
             ViewBag.Energy = HttpContext.Session.GetInt32("Energy");
             if(Fullness > 100 && Happiness > 100 && Energy > 100)
             {
-                TempData["img"] = "~/images/winner";
+                TempData["img"] = "winner.png";
                 TempData["action"] = "Congrats! You have won!";
             }
             if(Fullness == 0 || Happiness == 0)
@@ -56,11 +57,13 @@ namespace Dojodachi.Controllers
             if(randomRaise <= 6)
             {
                 Fullness+=randomRaise;
+                TempData["img"] = "mad.png";
                 TempData["action"] = "Your Dojodatchi doesn't like your poor cooking";
             }
             else
             {
                 Fullness+=randomRaise;
+                TempData["img"] = "meal-happy.png";
                 TempData["action"] = "Your Dojodachi enjoys the meal you gave it";
             }
             Meals-=1;
@@ -85,6 +88,7 @@ namespace Dojodachi.Controllers
             else 
             {
                 Meals+=addedMeal;
+                TempData["img"] = "hard-worker.png";
                 TempData["action"] = $"Your Dojodachi has worked some overtime and gained {addedMeal} meals!";
             }
             HttpContext.Session.SetInt32("Meals", (int)Meals);
@@ -101,13 +105,13 @@ namespace Dojodachi.Controllers
             int sadMeter = rand.Next(1, 4);
             if(sadMeter == 2)
             {
-                TempData["img"] = "~/images/sad";
+                TempData["img"] = "sad.png";
                 TempData["action"] = "Your Dojodachi is not having fun and is very sad";
             }
             else 
             {
                 Happiness+=randomRaise;
-                TempData["img"] = "~/images/happy";
+                TempData["img"] = "happy.png";
                 TempData["action"] = "Your Dojodachi is having loads of fun";
             }
             Energy-=5;
@@ -126,6 +130,7 @@ namespace Dojodachi.Controllers
             Happiness-=5;
             Fullness-=5;
             TempData["action"] = $"You wake up well rested and gained {Energy} energy but lost 5 in Happiness and Fullness.";
+            TempData["img"] = "sleeping.png";
             HttpContext.Session.SetInt32("Happiness", (int)Happiness);
             HttpContext.Session.SetInt32("Energy", (int)Energy);
             HttpContext.Session.SetInt32("Fullness", (int)Fullness);
