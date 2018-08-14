@@ -16,10 +16,28 @@
                     <p class="card-text">@ViewBag.action</p>
                 </div>
             </div>
-            <span><a href="Feed" class="btn btn-primary">Feed</a></span>
-            <span><a href="Play" class="btn btn-primary">Play</a></span>
-            <span><a href="Work" class="btn btn-primary">Work</a></span>
-            <span><a href="Sleep" class="btn btn-primary">Sleep</a></span>
+            @if(ViewBag.Happiness == 0 || ViewBag.Fullness == 0)
+            {
+                <span><a href="Feed" class="btn btn-primary disabled">Feed</a></span>
+                <span><a href="Play" class="btn btn-primary disabled">Play</a></span>
+                <span><a href="Work" class="btn btn-primary disabled">Work</a></span>
+                <span><a href="Sleep" class="btn btn-primary disabled">Sleep</a></span>
+                <span><a href="Reset" class="btn btn-primary">Reset</a></span> 
+            }
+            else 
+            {
+                 @if(ViewBag.Meals == 0) 
+                {
+                    <span><a href="Feed" class="btn btn-primary disabled">Feed</a></span>    
+                }
+                else if(ViewBag.Meals > 0)
+                {
+                    <span><a href="Feed" class="btn btn-primary">Feed</a></span>
+                }
+                <span><a href="Play" class="btn btn-primary">Play</a></span>
+                <span><a href="Work" class="btn btn-primary">Work</a></span>
+                <span><a href="Sleep" class="btn btn-primary">Sleep</a></span>
+            }
         </div>
     </div>    
 </div>

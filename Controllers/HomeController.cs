@@ -18,7 +18,7 @@ namespace Dojodachi.Controllers
             int? Happiness = HttpContext.Session.GetInt32("Happiness");
             int? Meals = HttpContext.Session.GetInt32("Meals");
             int? Energy = HttpContext.Session.GetInt32("Energy");
-            if(Fullness == null || Happiness == null | Meals == null || Energy == null)
+            if(Fullness == null || Happiness == null || Meals == null || Energy == null)
             {
                 TempData["img"] = "start.jpg";
                 HttpContext.Session.SetInt32("Fullness", 20);
@@ -37,6 +37,7 @@ namespace Dojodachi.Controllers
             }
             if(Fullness == 0 || Happiness == 0)
             {
+                TempData["img"] = "rip.png";
                 TempData["action"] = "Your Dojodachi has passed away";
             }
             ViewBag.action = TempData["action"];
@@ -49,7 +50,7 @@ namespace Dojodachi.Controllers
             Random rand = new Random();
             int? Fullness = HttpContext.Session.GetInt32("Fullness");
             int? Meals = HttpContext.Session.GetInt32("Meals");
-             int randomRaise = rand.Next(5, 10);
+            int randomRaise = rand.Next(5, 11);
             if(Meals == 0)
             {
                 TempData["action"] = "You cannot feed your Dojodachi if you do not have meals.  You have lost.";
@@ -78,11 +79,12 @@ namespace Dojodachi.Controllers
             Random rand = new Random();
             int? Meals = HttpContext.Session.GetInt32("Meals");
             int? Energy = HttpContext.Session.GetInt32("Energy");
-            int addedMeal = rand.Next(1,3);
+            int addedMeal = rand.Next(1,4);
             Energy-=5;
             if(addedMeal == 1)
             {
                 Meals+=addedMeal;
+                TempData["img"] = "lazy-worker.png";
                 TempData["action"] = $"Your Dojodachi just worked a normal shift and only got {addedMeal} meal.";
             }
             else 
